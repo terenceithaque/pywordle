@@ -1,6 +1,7 @@
 "game.py handles the main game loop"
 import pygame
 pygame.init()
+from word import *
 
 class Application():
     """An instance of the game."""
@@ -22,6 +23,9 @@ class Application():
 
     def run(self) -> None:
         "Run the game loop until the game ends running."
+
+        words = read_words_file()
+        print(words)
 
         # While the game is running
         while self.running:
