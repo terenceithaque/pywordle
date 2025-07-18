@@ -4,7 +4,7 @@ pygame.init()
 
 class Application():
     """An instance of the game."""
-    def __init__(self, window_width=500, window_height = 600) -> None:
+    def __init__(self, window_width=800, window_height = 600) -> None:
         """Setup the application instance and window.
         window_width : the width of the current game window, by default 500px,
         window_height: the height of the current game window, by default 600px."""
