@@ -1,0 +1,1 @@
+"word.py allows choosing a random word from the word list file."
