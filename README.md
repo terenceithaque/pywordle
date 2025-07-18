@@ -1,0 +1,1 @@
+This program is a Python implemetation of the famous game Wordle.
