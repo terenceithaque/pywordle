@@ -4,7 +4,7 @@ pygame.init()
 
 class Button:
     "A Button object"
-    def __init__(self, window:pygame.Surface, width=50, height=50, font_size=12, text="Button object", coords=(0,0), color=(0,0,0), text_color=(255, 255, 255), on_click=None):
+    def __init__(self, window:pygame.Surface, width=50, height=50, font_size=12, text="Button object", coords=(0,0), color=(0,0,0), text_color=(255, 255, 255)):
         """Initializes the button.
         window : the game window on which the button is displayed,
         width: the width of the button (50px by default),
@@ -13,8 +13,7 @@ class Button:
         text : the text displayed on the button,
         coords : x and y coordinates of the button on the window, tuple (x, y),
         color : the color of the button (RGB, tuple),
-        text_color : the color of the text (RGB, tuple),
-        on_click : function or action triggered when the button is clicked, None by default."""
+        text_color : the color of the text (RGB, tuple)"""
 
         # Initialize the button's attributes
         self.window = window
@@ -27,7 +26,6 @@ class Button:
         self.y = self.coords[1]
         self.color = color
         self.text_color = text_color
-        self.on_click = on_click
         self.is_hovered = False
 
         # Initialize the button's rect
