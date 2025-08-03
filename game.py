@@ -3,6 +3,7 @@ import pygame
 pygame.init()
 import random
 from word import *
+from button import *
 
 class Application():
     """An instance of the game."""
@@ -34,8 +35,13 @@ class Application():
         word = random.choice(words)
         print("Chosen word :", word)
 
+        # Test button
+        test_button = Button(self.window, width=100, height=50, font_size=24, text="Test button", coords=(50, 50), color=(0,0,0), text_color=(255,255,255), on_click=None)
+
         # While the game is running
         while self.running:
+
+            test_button.update(pygame.mouse.get_pos())
             
             self.window.fill((255, 255, 255))
             # Check for game and user events
@@ -45,6 +51,14 @@ class Application():
                     # End running the game
                     self.running = False
 
+
+                if test_button.is_clicked(event):
+                    print("Button clicked !")
+
+                else:
+                    print("No button clicked.")        
+
+            test_button.draw()
 
             # Update the window
             pygame.display.flip()            
