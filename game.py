@@ -17,6 +17,7 @@ class Application():
 
         # Set up the window
         self.window = pygame.display.set_mode((self.window_width, self.window_height))
+        pygame.display.set_caption("Terenceithaque's pywordle")
 
         # Running state tracking variable
         self.running = True
@@ -35,7 +36,8 @@ class Application():
 
         # While the game is running
         while self.running:
-
+            
+            self.window.fill((255, 255, 255))
             # Check for game and user events
             for event in pygame.event.get():
                 # If the player wants to quit the game
