@@ -1,6 +1,7 @@
 "game.py handles the main game loop"
 import pygame
 pygame.init()
+import random
 from word import *
 
 class Application():
@@ -24,8 +25,13 @@ class Application():
     def run(self) -> None:
         "Run the game loop until the game ends running."
 
-        words = read_words_file()
+        # Read the words file and split its content using the newline separator
+        words = read_words_file().split("\n")
         print(words)
+
+        # Choose a random word
+        word = random.choice(words)
+        print("Chosen word :", word)
 
         # While the game is running
         while self.running:
