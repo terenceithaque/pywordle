@@ -36,7 +36,8 @@ class Application():
         print("Chosen word :", word)
 
         # Test button
-        test_button = Button(self.window, width=100, height=50, font_size=24, text="Test button", coords=(50, 50), color=(0,0,0), text_color=(255,255,255), on_click=None)
+        test_button = Button(self.window, width=100, height=50, font_size=24, text="Test button", coords=(50, 50), color=(0,0,0), hover_color=(128, 128, 128), 
+                             text_color=(255,255,255))
         
         # While the game is running
         while self.running:
