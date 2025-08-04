@@ -72,4 +72,40 @@ class Button:
 
     def is_clicked(self, event):
         "Check if the button was clicked, returns a boolean."
-        return self.is_hovered and event.type == pygame.MOUSEBUTTONDOWN and event.button in [1,2,3]            
+        return self.is_hovered and event.type == pygame.MOUSEBUTTONDOWN and event.button in [1,2,3]
+
+
+
+class KeyBoard:
+    "A KeyBoard object with several buttons"
+    def __init__(self, window:pygame.Surface, button_texts:list, start_pos=(0,0), end_pos=(50,50), button_width=50, button_height=50, space=5, button_color=(0,0,0), 
+                 hover_color=(255,255,255), text_color=(255,255,255)):
+        """Initializes the keyboard.
+        window : the window on which the keyboard is displayed (pygame.Surface),
+        button_texts : list of texts for each button of the keyboard, for example 'A', 'B', 'C', etc. (list),
+        start_pos : the coordinates of the first  button (x, y),
+        end_pos : the coordinates of the last button (x, y),
+        button_width : the width of all buttons of the keyboard (50px by default),
+        button_height : the height of all buttons of the keyboard (50px by default),
+        space : the space between each button of the keyboard (5px by default),
+        button_color : the color of each button of the keyboard (RGB, tuple),
+        hover_color : the color of any button being hovered by the mouse (RGB, tuple),
+        text_color : the color of the text displayed inside each button."""
+
+        # Initialize keyboard attributes
+        self.window = window # Window
+
+        self.button_texts = button_texts # Button texts
+
+        self.start_pos = start_pos # Position of the first button
+        self.end_pos = end_pos # Position of the last button
+
+        self.button_width = button_width # Width of each button
+        self.button_height = button_height # Height of each button
+
+        self.space = space # Space between each buttons
+
+        self.button_color = button_color # Color for all buttons
+        self.hover_color = hover_color # Hover color for all buttons
+        self.text_color = text_color # Text color for all buttons
+
