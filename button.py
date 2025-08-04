@@ -63,6 +63,13 @@ class Button:
         # Check if the mouse is over the button
         self.is_hovered = self.rect.collidepoint(mouse_pos)
 
+    def change_color(self, new_color=(0,0,0)):
+        """Change the current color of the button for the specified new color.
+        - new_color : the new color of the button (RGB, tuple)."""
+
+        # Change the color of the button
+        self.color = new_color    
+
     def is_clicked(self, event):
         "Check if the button was clicked, returns a boolean."
         return self.is_hovered and event.type == pygame.MOUSEBUTTONDOWN and event.button in [1,2,3]            
