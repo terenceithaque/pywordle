@@ -78,8 +78,8 @@ class Button:
 
 class KeyBoard:
     "A KeyBoard object with several buttons"
-    def __init__(self, window:pygame.Surface, button_texts:list, start_pos=(0,0), end_pos=(50,50), button_width=50, button_height=50, space=5, button_color=(0,0,0), 
-                 hover_color=(255,255,255), text_color=(255,255,255)):
+    def __init__(self, window:pygame.Surface, button_texts:list, start_pos=(0,0), end_pos=(50,50), button_width=50, button_height=50, font_size=12, space=5, 
+                 button_color=(0,0,0), hover_color=(255,255,255), text_color=(255,255,255)):
         """Initializes the keyboard.
         window : the window on which the keyboard is displayed (pygame.Surface),
         button_texts : list of texts for each button of the keyboard, for example 'A', 'B', 'C', etc. (list),
@@ -87,6 +87,7 @@ class KeyBoard:
         end_pos : the coordinates of the last button (x, y),
         button_width : the width of all buttons of the keyboard (50px by default),
         button_height : the height of all buttons of the keyboard (50px by default),
+        font_size : the font size of the text inside each button (12px by default),
         space : the space between each button of the keyboard (5px by default),
         button_color : the color of each button of the keyboard (RGB, tuple),
         hover_color : the color of any button being hovered by the mouse (RGB, tuple),
@@ -102,10 +103,50 @@ class KeyBoard:
 
         self.button_width = button_width # Width of each button
         self.button_height = button_height # Height of each button
+        self.font_size = font_size # Font size
 
         self.space = space # Space between each buttons
 
         self.button_color = button_color # Color for all buttons
         self.hover_color = hover_color # Hover color for all buttons
         self.text_color = text_color # Text color for all buttons
+
+
+        self.buttons = []
+
+    def generate_buttons(self):
+        "Generate the buttons of the keyboard"
+
+        # x and y coordinates of the first button
+        start_x = self.start_pos[0]
+        start_y = self.start_pos[1]
+
+        # x and y coordinates of the last button
+        end_x = self.end_pos[0]
+        end_y = self.end_pos[1]
+
+        # Coordinates of the next button
+        next_x = start_x
+        next_y = start_y
+
+        # Counter for created buttons
+        n_created = 0
+
+        # Create buttons corresponding to each text in the button texts list
+        for text in self.button_texts:
+            if n_created == 0:
+                button = Button(self.window, self.button_width, self.button_height, self.font_size, text, (start_x, start_y), (0,0,0), (255,255,255), (255,255,255))
+                n_created += 1
+                self.buttons.append(button)
+
+            else:
+                next_x = next_x + self.space
+                next_y = next_y + self.space
+
+                button = Button(self.window, self.button_width, self.button_height, self.font_size, text, (next_x, next_y), (0,0,0), (255,255,255), (255,255,255))
+                n_created += 1
+                self.buttons.append(button)
+
+
+
 
