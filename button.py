@@ -78,11 +78,11 @@ class Button:
 
 class KeyBoard:
     "A KeyBoard object with several buttons"
-    def __init__(self, window:pygame.Surface, button_texts:list, start_pos=(0,0), end_pos=(50,50), button_width=50, button_height=50, font_size=12, space=5, 
+    def __init__(self, window:pygame.Surface, rows=list[tuple], start_pos=(0,0), end_pos=(50,50), button_width=50, button_height=50, font_size=12, space=5, 
                  button_color=(0,0,0), hover_color=(255,255,255), text_color=(255,255,255)):
         """Initializes the keyboard.
         window : the window on which the keyboard is displayed (pygame.Surface),
-        button_texts : list of texts for each button of the keyboard, for example 'A', 'B', 'C', etc. (list),
+        rows : list of button raws (with the button texts) as they should appear on the keyboard, for example 'A', 'B', 'C', etc. (list[tuple]),
         start_pos : the coordinates of the first  button (x, y),
         end_pos : the coordinates of the last button (x, y),
         button_width : the width of all buttons of the keyboard (50px by default),
@@ -96,7 +96,7 @@ class KeyBoard:
         # Initialize keyboard attributes
         self.window = window # Window
 
-        self.button_texts = button_texts # Button texts
+        self.rows = rows # Button rows with texts
 
         self.start_pos = start_pos # Position of the first button
         self.end_pos = end_pos # Position of the last button
@@ -132,20 +132,33 @@ class KeyBoard:
         # Counter for created buttons
         n_created = 0
 
-        # Create buttons corresponding to each text in the button texts list
-        for text in self.button_texts:
-            if n_created == 0:
-                button = Button(self.window, self.button_width, self.button_height, self.font_size, text, (start_x, start_y), (0,0,0), (255,255,255), (255,255,255))
-                n_created += 1
-                self.buttons.append(button)
+        # Create buttons given in the rows
+        for row in self.rows:
+            for button_text in row:
+                if n_created == 0:
+                    button = Button(self.window, self.button_width, self.button_height, self.font_size, button_text, (start_x, start_y), (0,0,0), (255,255,255), (255,255,255))
+                    n_created += 1
+                    self.buttons.append(button)
 
-            else:
-                next_x = next_x + self.space
-                next_y = next_y + self.space
+                else:
+                    next_x += self.space
+                    
+                    if next_x > end_x:
+                        next_x = end_x
 
-                button = Button(self.window, self.button_width, self.button_height, self.font_size, text, (next_x, next_y), (0,0,0), (255,255,255), (255,255,255))
-                n_created += 1
-                self.buttons.append(button)
+                       
+
+                    button = Button(self.window, self.button_width, self.button_height, self.font_size, button_text, (next_x, next_y), (0,0,0), (255,255,255), (255,255,255))
+                    n_created += 1
+                    self.buttons.append(button)
+
+            next_y += self.space
+            if next_y > end_y:
+                        next_y = end_y 
+
+    def draw(self):
+        for button in self.buttons:
+            button.draw()            
 
 
 

@@ -36,13 +36,20 @@ class Application():
         print("Chosen word :", word)
 
         # Test button
-        test_button = Button(self.window, width=100, height=50, font_size=24, text="Test button", coords=(50, 50), color=(0,0,0), hover_color=(128, 128, 128), 
-                             text_color=(255,255,255))
+        """test_button = Button(self.window, width=100, height=50, font_size=24, text="Test button", coords=(50, 50), color=(0,0,0), hover_color=(128, 128, 128), 
+                             text_color=(255,255,255))"""
+        
+        button_rows = [("A","Z","E","R","T","Y","U","I","O","P"),
+                        ("Q","S","D","F","G","H","J","K","L","M"),
+                        ("W","X","C","V","B","N")]
+        # Game keyboard
+        keyboard = KeyBoard(self.window, button_rows, (50,50), (66,138), 50, 50, 24, 10, (0,0,0), (255,255,255), (255,255,255))
+        keyboard.generate_buttons()
         
         # While the game is running
         while self.running:
 
-            test_button.update(pygame.mouse.get_pos())
+            #test_button.update(pygame.mouse.get_pos())
             
             self.window.fill((255, 255, 255))
             # Check for game and user events
@@ -53,13 +60,15 @@ class Application():
                     self.running = False
 
 
-                if test_button.is_clicked(event):
+                """if test_button.is_clicked(event):
                     print("Button clicked !")
 
                 else:
-                    print("No button clicked.")        
+                    print("No button clicked.")"""        
 
-            test_button.draw()
+            #test_button.draw()
+
+            keyboard.draw()
 
             # Update the window
             pygame.display.flip()            
