@@ -39,12 +39,26 @@ class Application():
         """test_button = Button(self.window, width=100, height=50, font_size=24, text="Test button", coords=(50, 50), color=(0,0,0), hover_color=(128, 128, 128), 
                              text_color=(255,255,255))"""
         
-        button_rows = [("A","Z","E","R","T","Y","U","I","O","P"),
-                        ("Q","S","D","F","G","H","J","K","L","M"),
-                        ("W","X","C","V","B","N")]
+
+        # Button to change keyboard layout
+        change_layout_button = Button(self.window, 50, 50, 24, "AZERTY", (0,0), (0,0,0), (255,0,0), (255,255,255))
+
+        # AZERTY keyboard layout
+        azerty = [("A","Z","E","R","T","Y","U","I","O","P"),
+                    ("Q","S","D","F","G","H","J","K","L","M"),
+                    ("W","X","C","V","B","N")]
+        
+        # QWERTY keyboard layout
+        qwerty = [("Q","W","R","T","Y","U","I","O","P"),
+                                ("A","S","D","F","G","H","J","K","L"),
+                                ("Z","X","C","V","B","N","M")]
         # Game keyboard
-        keyboard = KeyBoard(self.window, button_rows, (50,50), (66,138), 50, 50, 24, 25, (0,0,0), (255,0,0), (255,255,255))
+        keyboard = KeyBoard(self.window, azerty, (50,380), (66,238), 50, 50, 24, 25, (0,0,0), (255,0,0), (255,255,255))
         keyboard.generate_buttons()
+
+        keyboard.change_layout([("Q","W","R","T","Y","U","I","O","P"),
+                                ("A","S","D","F","G","H","J","K","L"),
+                                ("Z","X","C","V","B","N","M")])
         
         # While the game is running
         while self.running:
@@ -74,8 +88,12 @@ class Application():
 
             #test_button.draw()
 
+            change_layout_button.update()
+
             # Update the keyboard based on the current mouse position
             keyboard.update(mouse_pos)
+
+            change_layout_button.draw()
 
             # Display the keyboard
             keyboard.draw()

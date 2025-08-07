@@ -63,6 +63,14 @@ class Button:
         # Check if the mouse is over the button
         self.is_hovered = self.rect.collidepoint(mouse_pos)
 
+
+    def change_text(self, new_text="Button object"):
+        """Change the text of the button.
+        new_text: new button text, str."""
+
+        # Change the text
+        self.text = new_text    
+
     def change_color(self, new_color=(0,0,0)):
         """Change the current color of the button for the specified new color.
         - new_color : the new color of the button (RGB, tuple)."""
@@ -154,7 +162,12 @@ class KeyBoard:
 
     def change_layout(self, rows:list[tuple]):
         "Change the keyboard layout using the new rows."
-        pass
+        
+        # Change the keyboard rows
+        self.rows = rows
+
+        # Re-generate the buttons
+        self.generate_buttons()
 
     def update(self, mouse_pos:tuple):
         """Update the state of each button on the keyboard based on mouse position."
