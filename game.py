@@ -58,10 +58,15 @@ class Application():
 
         # Word grid
         word_grid = WordGrid(self.window, n_rows=5, n_columns=5)
-        word_grid.add("A",0,0)
+        #word_grid.add("A",0,0)
 
         print("Word grid content :", word_grid.content)
         print("Free columns in the first row :", word_grid.free_columns_in_row(0))
+
+        # Current grid row
+        current_row = 0
+        # Current grid column
+        current_column = 0
         
         # While the game is running
         while self.running:
@@ -89,7 +94,21 @@ class Application():
 
                     elif change_layout_button.text == "AZERTY":
                         keyboard.change_layout(azerty)
-                        change_layout_button.change_text("QWERTY")            
+                        change_layout_button.change_text("QWERTY")
+
+                for button in keyboard.buttons:
+
+                    if button.is_clicked(event):
+                        # Get the button's letter and write it to the current row and column in the word grid
+                        letter = button.text
+                        word_grid.add(letter, current_row, current_column)
+                        print("Word grid content :", word_grid.content)
+
+                        # Move to the next column
+                        current_column += 1
+
+
+
 
 
                 """if test_button.is_clicked(event):
@@ -99,6 +118,12 @@ class Application():
                     print("No button clicked.")"""        
 
             #test_button.draw()
+
+            # Update the current row and column
+            if current_column == 5 and current_row < 5:
+                # The next letters will be written in the next row beginning from the next column
+                current_row += 1
+                current_column = 0
 
             change_layout_button.update(mouse_pos)
 
