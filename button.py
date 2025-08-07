@@ -125,6 +125,9 @@ class KeyBoard:
     def generate_buttons(self):
         "Generate the buttons of the keyboard"
 
+        # Re-initialize the buttons list
+        self.buttons = []
+
         # x and y coordinates of the first button
         start_x = self.start_pos[0]
         start_y = self.start_pos[1]

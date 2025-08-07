@@ -50,8 +50,8 @@ class Application():
         
         # QWERTY keyboard layout
         qwerty = [("Q","W","R","T","Y","U","I","O","P"),
-                                ("A","S","D","F","G","H","J","K","L"),
-                                ("Z","X","C","V","B","N","M")]
+                  ("A","S","D","F","G","H","J","K","L"),
+                  ("Z","X","C","V","B","N","M")]
         # Game keyboard
         keyboard = KeyBoard(self.window, azerty, (50,380), (66,238), 50, 50, 24, 25, (0,0,0), (255,0,0), (255,255,255))
         keyboard.generate_buttons()
