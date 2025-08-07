@@ -58,9 +58,10 @@ class Application():
 
         # Word grid
         word_grid = WordGrid(self.window, n_rows=5, n_columns=5)
-        #word_grid.add("A",0,0)
+        word_grid.add("A",0,0)
 
         print("Word grid content :", word_grid.content)
+        print("Free columns in the first row :", word_grid.free_columns_in_row(0))
         
         # While the game is running
         while self.running:

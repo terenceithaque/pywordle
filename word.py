@@ -45,7 +45,25 @@ class WordGrid:
         # Assertions
         assert row <= self.n_rows and row >= 0, f"The row number must be comprised between 0 and {self.n_rows} included."
         assert column <= self.n_columns and column >= 0, f"The column number must be comprised between 0 and {self.n_columns} included."
+        assert isinstance(letter, str), "The given letter must be a string type."
+        assert len(letter) == 1, "The string representing the letter must be only 1 in length."
 
         # Update the grid content
-        self.content[row][column] = letter    
+        self.content[row][column] = letter
+
+    def free_columns_in_row(self, row=0):
+        """Returns a list of tuples with the positions (row, column) of all free columns in the given row.
+        - row: the row in which to find free columns, int (0 by default)."""
+
+        # Assertions
+        assert row <= self.n_rows and row >= 0, f"The row number must be comprised between 0 and {self.n_rows} included."
+
+        # Get the content of the row
+        row_content = self.content[row]
+
+        # We consider free columns as those with an empty string as content
+        free_columns = [i for i in range(len(row_content)) if row_content[i] == ""]
+
+        return [(row, column) for column in free_columns]
+
         
