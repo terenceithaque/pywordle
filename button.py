@@ -149,7 +149,20 @@ class KeyBoard:
 
                 next_x += self.button_width + self.space
 
-            next_y += self.button_height + self.space    
+            next_y += self.button_height + self.space
+
+
+    def change_layout(self, rows:list[tuple]):
+        "Change the keyboard layout using the new rows."
+        pass
+
+    def update(self, mouse_pos:tuple):
+        """Update the state of each button on the keyboard based on mouse position."
+        mouse_pos: mouse position, tuple."""
+
+        # Update each button based on the current mouse position
+        for button in self.buttons:
+            button.update(mouse_pos)            
 
     def draw(self):
         for button in self.buttons:

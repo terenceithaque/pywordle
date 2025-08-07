@@ -49,6 +49,9 @@ class Application():
         # While the game is running
         while self.running:
 
+            # Position of the mouse
+            mouse_pos = pygame.mouse.get_pos()
+
             #test_button.update(pygame.mouse.get_pos())
             
             self.window.fill((255, 255, 255))
@@ -71,6 +74,10 @@ class Application():
 
             #test_button.draw()
 
+            # Update the keyboard based on the current mouse position
+            keyboard.update(mouse_pos)
+
+            # Display the keyboard
             keyboard.draw()
 
             # Update the window
