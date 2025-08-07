@@ -41,7 +41,7 @@ class Application():
         
 
         # Button to change keyboard layout
-        change_layout_button = Button(self.window, 70, 50, 24, "AZERTY", (0,0), (0,0,0), (255,0,0), (255,255,255))
+        change_layout_button = Button(self.window, 70, 50, 24, "QWERTY", (0,0), (0,0,0), (255,0,0), (255,255,255))
 
         # AZERTY keyboard layout
         azerty = [("A","Z","E","R","T","Y","U","I","O","P"),
