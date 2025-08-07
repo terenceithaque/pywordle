@@ -55,6 +55,12 @@ class Application():
         # Game keyboard
         keyboard = KeyBoard(self.window, azerty, (50,380), (66,238), 50, 50, 24, 25, (0,0,0), (255,0,0), (255,255,255))
         keyboard.generate_buttons()
+
+        # Word grid
+        word_grid = WordGrid(self.window, n_rows=5, n_columns=5)
+        #word_grid.add("A",0,0)
+
+        print("Word grid content :", word_grid.content)
         
         # While the game is running
         while self.running:

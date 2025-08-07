@@ -34,5 +34,18 @@ class WordGrid:
         self.n_columns = n_columns
 
         # Grid content
-        self.content = []
+        self.content = [["" for i in range(self.n_columns)] for n in range(self.n_rows)]
+
+    def add(self, letter:str, row=0, column=0):
+        """Add the given letter at the position (row, column).
+        - letter: the letter to be added in the grid, str.
+        - row: row in which the letter will be inserted, int (0 by default),
+        - column : column in which the letter will be inserted, int (0 by default)."""
+
+        # Assertions
+        assert row <= self.n_rows and row >= 0, f"The row number must be comprised between 0 and {self.n_rows} included."
+        assert column <= self.n_columns and column >= 0, f"The column number must be comprised between 0 and {self.n_columns} included."
+
+        # Update the grid content
+        self.content[row][column] = letter    
         
