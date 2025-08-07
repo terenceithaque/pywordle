@@ -126,35 +126,30 @@ class KeyBoard:
         end_y = self.end_pos[1]
 
         # Coordinates of the next button
-        next_x = start_x
+        
         next_y = start_y
 
-        # Counter for created buttons
-        n_created = 0
-
-        # Create buttons given in the rows
         for row in self.rows:
+            next_x = start_x
+
             for button_text in row:
-                if n_created == 0:
-                    button = Button(self.window, self.button_width, self.button_height, self.font_size, button_text, (start_x, start_y), (0,0,0), (255,255,255), (255,255,255))
-                    n_created += 1
-                    self.buttons.append(button)
+                button = Button(
+                    self.window,
+                    self.button_width,
+                    self.button_height,
+                    self.font_size,
+                    button_text,
+                    (next_x, next_y),
+                    self.button_color,
+                    self.hover_color,
+                    self.text_color
+                )
 
-                else:
-                    next_x += self.space
-                    
-                    if next_x > end_x:
-                        next_x = end_x
+                self.buttons.append(button)
 
-                       
+                next_x += self.button_width + self.space
 
-                    button = Button(self.window, self.button_width, self.button_height, self.font_size, button_text, (next_x, next_y), (0,0,0), (255,255,255), (255,255,255))
-                    n_created += 1
-                    self.buttons.append(button)
-
-            next_y += self.space
-            if next_y > end_y:
-                        next_y = end_y 
+            next_y += self.button_height + self.space    
 
     def draw(self):
         for button in self.buttons:

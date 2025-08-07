@@ -43,7 +43,7 @@ class Application():
                         ("Q","S","D","F","G","H","J","K","L","M"),
                         ("W","X","C","V","B","N")]
         # Game keyboard
-        keyboard = KeyBoard(self.window, button_rows, (50,50), (66,138), 50, 50, 24, 10, (0,0,0), (255,255,255), (255,255,255))
+        keyboard = KeyBoard(self.window, button_rows, (50,50), (66,138), 50, 50, 24, 25, (0,0,0), (255,0,0), (255,255,255))
         keyboard.generate_buttons()
         
         # While the game is running
@@ -58,6 +58,9 @@ class Application():
                 if event.type == pygame.QUIT:
                     # End running the game
                     self.running = False
+
+                if event.type == pygame.MOUSEMOTION:
+                    print(pygame.mouse.get_pos())    
 
 
                 """if test_button.is_clicked(event):
