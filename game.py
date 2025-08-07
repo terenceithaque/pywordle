@@ -41,7 +41,7 @@ class Application():
         
 
         # Button to change keyboard layout
-        change_layout_button = Button(self.window, 50, 50, 24, "AZERTY", (0,0), (0,0,0), (255,0,0), (255,255,255))
+        change_layout_button = Button(self.window, 70, 50, 24, "AZERTY", (0,0), (0,0,0), (255,0,0), (255,255,255))
 
         # AZERTY keyboard layout
         azerty = [("A","Z","E","R","T","Y","U","I","O","P"),
@@ -55,10 +55,6 @@ class Application():
         # Game keyboard
         keyboard = KeyBoard(self.window, azerty, (50,380), (66,238), 50, 50, 24, 25, (0,0,0), (255,0,0), (255,255,255))
         keyboard.generate_buttons()
-
-        keyboard.change_layout([("Q","W","R","T","Y","U","I","O","P"),
-                                ("A","S","D","F","G","H","J","K","L"),
-                                ("Z","X","C","V","B","N","M")])
         
         # While the game is running
         while self.running:
@@ -77,7 +73,16 @@ class Application():
                     self.running = False
 
                 if event.type == pygame.MOUSEMOTION:
-                    print(pygame.mouse.get_pos())    
+                    print(pygame.mouse.get_pos())
+
+                if change_layout_button.is_clicked(event):
+                    if change_layout_button.text == "QWERTY":
+                        keyboard.change_layout(qwerty)
+                        change_layout_button.change_text("AZERTY")
+
+                    elif change_layout_button.text == "AZERTY":
+                        keyboard.change_layout(azerty)
+                        change_layout_button.change_text("QWERTY")            
 
 
                 """if test_button.is_clicked(event):
@@ -88,7 +93,7 @@ class Application():
 
             #test_button.draw()
 
-            change_layout_button.update()
+            change_layout_button.update(mouse_pos)
 
             # Update the keyboard based on the current mouse position
             keyboard.update(mouse_pos)
