@@ -71,6 +71,9 @@ class Application():
         # While the game is running
         while self.running:
 
+            # Get pressed keys
+            keys = pygame.key.get_pressed()
+
             # Position of the mouse
             mouse_pos = pygame.mouse.get_pos()
 
@@ -103,6 +106,21 @@ class Application():
 
                         # Move to the next column
                         current_column += 1
+
+                # If a key is pressed
+                if event.type == pygame.KEYDOWN:
+                    
+                    # Get the text of the key
+                    key_text = event.unicode
+                    print(f"Key text : {key_text}")
+
+                    # The letter to insert is the text of the key in upper case
+                    letter = key_text.upper()
+                    word_grid.add(letter, current_row, current_column)
+                    print("Word grid content :", word_grid.content)
+
+                    # Move to the next column
+                    current_column += 1        
 
 
 
