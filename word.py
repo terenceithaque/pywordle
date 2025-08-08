@@ -25,13 +25,19 @@ def read_words_file():
 
 class WordGrid:
     """A WordGrid object representing a word grid."""
-    def __init__(self, window:pygame.Surface, n_rows=5, n_columns=5):
+    def __init__(self, window:pygame.Surface, n_rows=5, n_columns=5, square_width=50, square_height=50, font_size=24,text_color=(255,255,255), pos=(50,50)):
         """Initializes the WordGrid."""
 
         # Initialize attributes
         self.window = window
         self.n_rows = n_rows
         self.n_columns = n_columns
+        self.square_width = square_width
+        self.square_height = square_height
+        self.font_size = font_size
+        self.text_color = text_color
+        self.x = pos[0]
+        self.y = pos[1]
 
         # Grid content
         self.content = [["" for i in range(self.n_columns)] for n in range(self.n_rows)]
@@ -65,5 +71,24 @@ class WordGrid:
         free_columns = [i for i in range(len(row_content)) if row_content[i] == ""]
 
         return [(row, column) for column in free_columns]
+    
+    def draw(self):
+        """Draw the WordGrid on the screen."""
+        
+        x = self.x
+        y = self.y
+        for row in self.content:
+            
+            for letter in row:
+                pygame.draw.rect(self.window, (125,125,125),(x, y, self.square_width, self.square_height))
+                text_font = pygame.font.Font(None, self.font_size)
+                text_display = text_font.render(letter, True, self.text_color)
+                self.window.blit(text_display, (x,y))
+                x += self.square_width + 5
+
+            y += self.square_height + 5
+            x = self.x    
+    
+
 
         

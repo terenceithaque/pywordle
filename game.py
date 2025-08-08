@@ -57,7 +57,7 @@ class Application():
         keyboard.generate_buttons()
 
         # Word grid
-        word_grid = WordGrid(self.window, n_rows=5, n_columns=5)
+        word_grid = WordGrid(self.window, n_rows=6, n_columns=5, square_width=50, square_height=50, font_size=24, text_color=(255,255,255), pos=(240, 120))
         #word_grid.add("A",0,0)
 
         print("Word grid content :", word_grid.content)
@@ -159,6 +159,9 @@ class Application():
 
             # Display the keyboard
             keyboard.draw()
+
+            # Display the word grid
+            word_grid.draw()
 
             # Update the window
             pygame.display.flip()            
