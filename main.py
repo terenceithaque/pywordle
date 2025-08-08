@@ -6,7 +6,7 @@ from tkinter import messagebox
 
 
 window_width = 800
-window_height = 600
+window_height = 800
 
 # Run the game a first time
 game = Application(window_width, window_height)

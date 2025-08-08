@@ -178,7 +178,28 @@ class KeyBoard:
 
         # Update each button based on the current mouse position
         for button in self.buttons:
-            button.update(mouse_pos)            
+            button.update(mouse_pos)
+
+
+    def find_button_by_text(self, button_text:str):
+        """Find a Button object inside the keyboard using the given button text, and return that object. If nothing matches, returns the first button on the keyboard.
+        button_text: the text appearing on the button."""
+
+        # Default button to be returned if nothing matches
+        default_button = self.buttons[0]
+
+        # For each button in the buttons list
+        for button in self.buttons:
+            # If the text of the button matches with the given button text
+            if button.text == button_text:
+                # Return that button
+                return button
+
+        # Return the default button if nothing matches
+        return default_button    
+
+
+
 
     def draw(self):
         for button in self.buttons:

@@ -53,7 +53,7 @@ class Application():
                   ("A","S","D","F","G","H","J","K","L"),
                   ("Z","X","C","V","B","N","M")]
         # Game keyboard
-        keyboard = KeyBoard(self.window, azerty, (50,380), (66,238), 50, 50, 24, 25, (0,0,0), (255,0,0), (255,255,255))
+        keyboard = KeyBoard(self.window, azerty, (50,550), (66,528), 50, 50, 24, 25, (0,0,0), (255,0,0), (255,255,255))
         keyboard.generate_buttons()
 
         # Word grid
@@ -71,11 +71,18 @@ class Application():
         # While the game is running
         while self.running:
 
-            # Get pressed keys
-            keys = pygame.key.get_pressed()
+            pygame.time.wait(100)
 
             # Position of the mouse
             mouse_pos = pygame.mouse.get_pos()
+
+            # Update the keyboard based on the current mouse position
+            keyboard.update(mouse_pos)
+
+            # Get pressed keys
+            keys = pygame.key.get_pressed()
+
+            
 
             #test_button.update(pygame.mouse.get_pos())
             
@@ -116,6 +123,10 @@ class Application():
 
                     # The letter to insert is the text of the key in upper case
                     letter = key_text.upper()
+
+                    button = keyboard.find_button_by_text(letter)
+                    button.is_hovered = True
+
                     word_grid.add(letter, current_row, current_column)
                     print("Word grid content :", word_grid.content)
 
@@ -142,8 +153,7 @@ class Application():
 
             change_layout_button.update(mouse_pos)
 
-            # Update the keyboard based on the current mouse position
-            keyboard.update(mouse_pos)
+            
 
             change_layout_button.draw()
 
