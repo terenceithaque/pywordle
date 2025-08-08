@@ -72,21 +72,41 @@ class WordGrid:
 
         return [(row, column) for column in free_columns]
     
+    def delete(self, row=0, column=0):
+        """Delete the letter in the cell located at position (row, column).
+        - row: the row in which the cell is located,
+        - column: the column in which the cell is located."""
+
+        # Assertions
+        assert row >= 0 and row <= self.n_rows, f"The row number must be comprised between 0 and {self.n_rows}."
+        assert column >= 0 and column <= self.n_columns, f"The column number must be comprised between 0 and {self.n_columns}"
+
+        self.content[row][column] = ""
+    
     def draw(self):
         """Draw the WordGrid on the screen."""
-        
+
+        # Starting position
         x = self.x
         y = self.y
+
+        # Loop over each row in the content of the grid
         for row in self.content:
-            
+            # For each letter in the row
             for letter in row:
+                # Draw a rectangle at the current (x, y) position
                 pygame.draw.rect(self.window, (125,125,125),(x, y, self.square_width, self.square_height))
+                # Display the letter inside of the rectangle
                 text_font = pygame.font.Font(None, self.font_size)
                 text_display = text_font.render(letter, True, self.text_color)
                 self.window.blit(text_display, (x,y))
+                # Update the x coordinate by adding square width + an additionnal space of 5px
                 x += self.square_width + 5
 
+            # Update the y coordinate by adding square height + an additionnal space of 5px
             y += self.square_height + 5
+
+            # Reset the x coordinate
             x = self.x    
     
 
