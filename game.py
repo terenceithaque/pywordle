@@ -108,14 +108,21 @@ class Application():
 
                 for button in keyboard.buttons:
 
-                    if button.is_clicked(event):
-                        # Get the button's letter and write it to the current row and column in the word grid
-                        letter = button.text
-                        word_grid.add(letter, current_row, current_column)
-                        print("Word grid content :", word_grid.content)
+                    # Handle the Return button
+                    if button.text == "<- Return":
+                        if button.is_clicked(event):
+                            print("Return button clicked.")
 
-                        # Move to the next column
-                        current_column += 1
+                    # Other buttons
+                    else:
+                        if button.is_clicked(event):
+                            # Get the button's letter and write it to the current row and column in the word grid
+                            letter = button.text
+                            word_grid.add(letter, current_row, current_column)
+                            print("Word grid content :", word_grid.content)
+
+                            # Move to the next column
+                            current_column += 1
 
                 # If a key is pressed
                 if event.type == pygame.KEYDOWN:
