@@ -181,6 +181,26 @@ class KeyBoard:
             button.update(mouse_pos)
 
 
+    def add_button(self, button_text="New button", pos=(0,0), button_width=50, button_height=50, font_size=12, button_color=(0,0,0), hover_color=(255,255,255),
+                   text_color=(255,255,255)):
+        """Creates a new button on the keyboard.
+
+        button_text: text of the button,
+        column: column in which the button must be added,
+        button_width: the width of the new button,
+        button_height: the height of the new button,
+        font_size: font size for the text inside the button,
+        button_color: the color of the button (RGB, tuple),
+        hover_color: the color displayed when the button is hovered (RGB, tuple),
+        text_color: the color of the text inside the button (RGB, tuple)."""
+
+        button = Button(self.window, button_width, button_height, font_size, button_text, pos, button_color, hover_color, text_color)
+
+        self.buttons.append(button)
+
+
+
+
     def find_button_by_text(self, button_text:str):
         """Find a Button object inside the keyboard using the given button text, and return that object. If nothing matches, returns the first button on the keyboard.
         button_text: the text appearing on the button."""

@@ -55,6 +55,7 @@ class Application():
         # Game keyboard
         keyboard = KeyBoard(self.window, azerty, (50,550), (66,528), 50, 50, 24, 25, (0,0,0), (255,0,0), (255,255,255))
         keyboard.generate_buttons()
+        keyboard.add_button("<- Return", (510, 700), 300, 50, 24, (0,0,0), (255,0,0), (255,255,255))
 
         # Word grid
         word_grid = WordGrid(self.window, n_rows=6, n_columns=5, square_width=50, square_height=50, font_size=24, text_color=(255,255,255), pos=(240, 120))
@@ -97,10 +98,12 @@ class Application():
                 if change_layout_button.is_clicked(event):
                     if change_layout_button.text == "AZERTY -> QWERTY":
                         keyboard.change_layout(qwerty)
+                        keyboard.add_button("<- Return", (720, 625), 75, 130, 24, (0,0,0), (255,0,0), (255,255,255))
                         change_layout_button.change_text("QWERTY -> AZERTY")
 
                     elif change_layout_button.text == "QWERTY -> AZERTY":
                         keyboard.change_layout(azerty)
+                        keyboard.add_button("<- Return", (510, 700), 300, 50, 24, (0,0,0), (255,0,0), (255,255,255))
                         change_layout_button.change_text("AZERTY -> QWERTY")
 
                 for button in keyboard.buttons:
@@ -117,21 +120,31 @@ class Application():
                 # If a key is pressed
                 if event.type == pygame.KEYDOWN:
                     
-                    # Get the text of the key
-                    key_text = event.unicode
-                    print(f"Key text : {key_text}")
+                    # Handle the Return button
+                    if event.key == pygame.K_RETURN:
+                        print("Return key pressed.")
+                        button_text = "<- Return"
+                        return_button = keyboard.find_button_by_text(button_text)
+                        return_button.is_hovered = True
+                    
+                    else:
+                        # Get the text of the key
+                        key_text = event.unicode
+                        print(f"Key text : {key_text}")
 
-                    # The letter to insert is the text of the key in upper case
-                    letter = key_text.upper()
+                    
+                    
+                        # The letter to insert is the text of the key in upper case
+                        letter = key_text.upper()
 
-                    button = keyboard.find_button_by_text(letter)
-                    button.is_hovered = True
+                        button = keyboard.find_button_by_text(letter)
+                        button.is_hovered = True
 
-                    word_grid.add(letter, current_row, current_column)
-                    print("Word grid content :", word_grid.content)
+                        word_grid.add(letter, current_row, current_column)
+                        print("Word grid content :", word_grid.content)
 
-                    # Move to the next column
-                    current_column += 1        
+                        # Move to the next column
+                        current_column += 1        
 
 
 
