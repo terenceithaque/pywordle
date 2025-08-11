@@ -209,6 +209,7 @@ class Application():
                         print(word_grid.get_word(current_row))
                         if any(["" in word_grid.get_word(current_row)]):
                             word_grid.add(letter, current_row, current_column)
+                            print(f"Cartesian coords for ({current_row}, {current_column}) : {word_grid.cartesian_coords(current_row, current_column)}.")
                         
                         print("Word grid content :", word_grid.content)
 

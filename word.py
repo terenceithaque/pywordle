@@ -72,6 +72,21 @@ class WordGrid:
 
         return [(row, column) for column in free_columns]
     
+    def cartesian_coords(self, row=0, column=0):
+        """Returns the cartesian (x, y) coordinates of the cell located at (row, column).
+        row: the row in which the cell is located.
+        column: the column in which the cell is located."""
+
+        assert row >= 0 and row <= self.n_rows, f"The row number must be comprised between 0 and {self.n_rows} included."
+        assert column >= 0 and column <= self.n_columns, f"The column number must be comprised between 0 and {self.n_columns} included."
+
+        spacing = 5
+
+        cell_x = self.x + column * (self.square_width + spacing)
+        cell_y = self.y + row * (self.square_height + spacing)
+
+        return (cell_x, cell_y)
+    
     def delete_letter(self, row=0, column=0):
         """Delete the letter in the cell located at position (row, column).
         - row: the row in which the cell is located,
