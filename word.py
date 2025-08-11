@@ -72,7 +72,7 @@ class WordGrid:
 
         return [(row, column) for column in free_columns]
     
-    def delete(self, row=0, column=0):
+    def delete_letter(self, row=0, column=0):
         """Delete the letter in the cell located at position (row, column).
         - row: the row in which the cell is located,
         - column: the column in which the cell is located."""

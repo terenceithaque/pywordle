@@ -76,6 +76,8 @@ class Application():
         # While the game is running
         while self.running:
 
+            #print(list(range(current_column + 1)))
+
             pygame.time.wait(100)
 
             # Position of the mouse
@@ -99,18 +101,20 @@ class Application():
                     # End running the game
                     self.running = False
 
-                if event.type == pygame.MOUSEMOTION:
-                    print(pygame.mouse.get_pos())    
+                """if event.type == pygame.MOUSEMOTION:
+                    print(pygame.mouse.get_pos())"""    
 
                 if change_layout_button.is_clicked(event):
                     if change_layout_button.text == "AZERTY -> QWERTY":
                         keyboard.change_layout(qwerty)
                         keyboard.add_button("<- Return", (720, 625), 75, 130, 24, (0,0,0), (255,0,0), (255,255,255))
+                        keyboard.add_button("<× Del", (650, 490), 125, 50, 24, (0,0,0), (255,0,0), (255,255,255))
                         change_layout_button.change_text("QWERTY -> AZERTY")
 
                     elif change_layout_button.text == "QWERTY -> AZERTY":
                         keyboard.change_layout(azerty)
                         keyboard.add_button("<- Return", (510, 700), 300, 50, 24, (0,0,0), (255,0,0), (255,255,255))
+                        keyboard.add_button("<× Del", (650, 490), 125, 50, 24, (0,0,0), (255,0,0), (255,255,255))
                         change_layout_button.change_text("AZERTY -> QWERTY")
 
                 for button in keyboard.buttons:
@@ -119,13 +123,27 @@ class Application():
                     if button.text == "<- Return":
                         if button.is_clicked(event):
                             print("Return button clicked.")
-                            if current_column == 4 and current_row < 5:
+                            if current_column == 5 and current_row < 5:
                                 # The next letters will be written in the next row beginning from the next column
                                 current_row += 1
                                 current_column = 0
 
                             else:
-                                messagebox.showinfo("Too short !", "Word too short !") 
+                                messagebox.showinfo("Too short !", "Word too short !")
+
+                    # Handle the Del button
+                    elif button.text == "<× Del":
+                        if button.is_clicked(event):
+                            print("Del button clicked.")
+
+
+                            # Remove the last letter entered in the grid
+                            if current_column > 0:
+                                current_column -= 1
+                                word_grid.delete_letter(current_row, current_column)
+                                print("Word grid content :", word_grid.content)
+                            
+                                print("Current column :", current_column)             
 
                     # Other buttons
                     else:
@@ -148,7 +166,7 @@ class Application():
                         return_button = keyboard.find_button_by_text(button_text)
                         return_button.is_hovered = True
                         # Update the current row and column
-                        if current_column == 4 and current_row < 5:
+                        if current_column == 5 and current_row < 5:
                             # The next letters will be written in the next row beginning from the next column
                             current_row += 1
                             current_column = 0
@@ -165,10 +183,9 @@ class Application():
 
                         # Remove the last letter entered in the grid
                         if current_column > 0:
-                            last_column = current_column -1
-                            word_grid.delete(current_row, last_column)
+                            current_column -= 1
+                            word_grid.delete_letter(current_row, current_column)
                             print("Word grid content :", word_grid.content)
-                            current_column = last_column
                             
                             print("Current column :", current_column)
     
@@ -190,13 +207,13 @@ class Application():
                         print("Current column :", current_column)
 
                         print(word_grid.get_word(current_row))
-                        if any(["" in word_grid.get_word(current_column)]):
+                        if any(["" in word_grid.get_word(current_row)]):
                             word_grid.add(letter, current_row, current_column)
                         
                         print("Word grid content :", word_grid.content)
 
                         # Move to the next column
-                        if current_column < 4:
+                        if current_column < 5:
                             current_column += 1        
 
 
