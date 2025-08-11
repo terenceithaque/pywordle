@@ -1,6 +1,7 @@
 "game.py handles the main game loop"
 import pygame
 pygame.init()
+from tkinter import messagebox
 import random
 from word import *
 from button import *
@@ -55,7 +56,10 @@ class Application():
         # Game keyboard
         keyboard = KeyBoard(self.window, azerty, (50,550), (66,528), 50, 50, 24, 25, (0,0,0), (255,0,0), (255,255,255))
         keyboard.generate_buttons()
+        # Add a Return button
         keyboard.add_button("<- Return", (510, 700), 300, 50, 24, (0,0,0), (255,0,0), (255,255,255))
+        # Add a Del button
+        keyboard.add_button("<× Del", (650, 490), 125, 50, 24, (0,0,0), (255,0,0), (255,255,255))
 
         # Word grid
         word_grid = WordGrid(self.window, n_rows=6, n_columns=5, square_width=50, square_height=50, font_size=24, text_color=(255,255,255), pos=(240, 120))
@@ -95,6 +99,9 @@ class Application():
                     # End running the game
                     self.running = False
 
+                if event.type == pygame.MOUSEMOTION:
+                    print(pygame.mouse.get_pos())    
+
                 if change_layout_button.is_clicked(event):
                     if change_layout_button.text == "AZERTY -> QWERTY":
                         keyboard.change_layout(qwerty)
@@ -112,6 +119,13 @@ class Application():
                     if button.text == "<- Return":
                         if button.is_clicked(event):
                             print("Return button clicked.")
+                            if current_column == 4 and current_row < 5:
+                                # The next letters will be written in the next row beginning from the next column
+                                current_row += 1
+                                current_column = 0
+
+                            else:
+                                messagebox.showinfo("Too short !", "Word too short !") 
 
                     # Other buttons
                     else:
@@ -133,7 +147,33 @@ class Application():
                         button_text = "<- Return"
                         return_button = keyboard.find_button_by_text(button_text)
                         return_button.is_hovered = True
+                        # Update the current row and column
+                        if current_column == 4 and current_row < 5:
+                            # The next letters will be written in the next row beginning from the next column
+                            current_row += 1
+                            current_column = 0
+
+                        else:
+                            messagebox.showinfo("Too short !", "Word too short !")    
                     
+                    # Handle the Del button
+                    elif event.key == pygame.K_DELETE or event.key == pygame.K_BACKSPACE:
+                        print("Del button pressed")
+                        button_text = "<× Del"
+                        del_button = keyboard.find_button_by_text(button_text)
+                        del_button.is_hovered = True
+
+                        # Remove the last letter entered in the grid
+                        if current_column > 0:
+                            last_column = current_column -1
+                            word_grid.delete(current_row, last_column)
+                            print("Word grid content :", word_grid.content)
+                            current_column = last_column
+                            
+                            print("Current column :", current_column)
+    
+
+                    # Handle other buttons    
                     else:
                         # Get the text of the key
                         key_text = event.unicode
@@ -147,11 +187,17 @@ class Application():
                         button = keyboard.find_button_by_text(letter)
                         button.is_hovered = True
 
-                        word_grid.add(letter, current_row, current_column)
+                        print("Current column :", current_column)
+
+                        print(word_grid.get_word(current_row))
+                        if any(["" in word_grid.get_word(current_column)]):
+                            word_grid.add(letter, current_row, current_column)
+                        
                         print("Word grid content :", word_grid.content)
 
                         # Move to the next column
-                        current_column += 1        
+                        if current_column < 4:
+                            current_column += 1        
 
 
 
@@ -165,11 +211,7 @@ class Application():
 
             #test_button.draw()
 
-            # Update the current row and column
-            if current_column == 5 and current_row < 5:
-                # The next letters will be written in the next row beginning from the next column
-                current_row += 1
-                current_column = 0
+            
 
             change_layout_button.update(mouse_pos)
 

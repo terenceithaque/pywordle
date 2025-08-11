@@ -82,6 +82,15 @@ class WordGrid:
         assert column >= 0 and column <= self.n_columns, f"The column number must be comprised between 0 and {self.n_columns}"
 
         self.content[row][column] = ""
+
+
+    def get_word(self, row=0):
+        """Returns the word contained in the specified row.
+        row: the number of the row where the word is located"""
+
+        assert row >= 0 and row <= self.n_rows, f"The row number must be comprised between 0 and {self.n_rows}"
+
+        return self.content[row]
     
     def draw(self):
         """Draw the WordGrid on the screen."""
