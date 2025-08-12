@@ -107,6 +107,38 @@ class WordGrid:
 
         return self.content[row]
     
+
+    def misplaced_letters(self, row=0, word=""):
+        """Compares the position of letters in the given row with the ones of the given word, and return a list of misplaced letters."""
+
+        # Assertions
+        assert row >= 0 and row <= self.n_rows, f"The row number must be comprised between 0 and {self.n_rows}."
+
+        # List of misplaced letters
+        misplaced = []
+
+        word_letters = list(word)
+        row_content = self.content[row]
+
+        print("Word length :", len(word_letters), "row length :", len(row_content))
+
+        for i in range(len(row_content)):
+            letter = row_content[i]
+            if letter != word_letters[i] and letter in word_letters:
+                misplaced.append(letter)
+
+        return misplaced
+
+
+    def letters_not_in_word(self, row=0, word=""):
+        """Returns a list of letters in the given row that aren't in the given word."""
+        # Assertions
+        assert row >= 0 and row <= self.n_rows, f"The row number must be comprised between 0 and {self.n_rows}."
+
+
+
+
+    
     def draw(self):
         """Draw the WordGrid on the screen."""
 

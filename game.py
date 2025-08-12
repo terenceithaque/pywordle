@@ -21,6 +21,13 @@ class Application():
         self.window = pygame.display.set_mode((self.window_width, self.window_height))
         pygame.display.set_caption("Terenceithaque's pywordle")
 
+
+        # Color code for the game
+        self.color_code = {
+            "misplaced":(128,94,92),
+            "not_in_word":(255,0,0)
+        }
+
         # Running state tracking variable
         self.running = True
 
@@ -124,6 +131,9 @@ class Application():
                         if button.is_clicked(event):
                             print("Return button clicked.")
                             if current_column == 5 and current_row < 5:
+                                # Get the misplaced letters
+                                misplaced_letters = word_grid.misplaced_letters(current_row, word)
+                                print(f"Misplaced letters compared to {word} : {misplaced_letters}")
                                 # The next letters will be written in the next row beginning from the next column
                                 current_row += 1
                                 current_column = 0
@@ -152,6 +162,7 @@ class Application():
                             letter = button.text
                             word_grid.add(letter, current_row, current_column)
                             print("Word grid content :", word_grid.content)
+                            print(f"Cartesian coords for ({current_row}, {current_column}) : {word_grid.cartesian_coords(current_row, current_column)}.")
 
                             # Move to the next column
                             current_column += 1
@@ -167,6 +178,9 @@ class Application():
                         return_button.is_hovered = True
                         # Update the current row and column
                         if current_column == 5 and current_row < 5:
+                            # Get the misplaced letters
+                            misplaced_letters = word_grid.misplaced_letters(current_row, word)
+                            print(f"Misplaced letters compared to {word} : {misplaced_letters}")
                             # The next letters will be written in the next row beginning from the next column
                             current_row += 1
                             current_column = 0
