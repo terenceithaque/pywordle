@@ -40,7 +40,7 @@ class Application():
         print(words)
 
         # Choose a random word
-        word = random.choice(words)
+        word = random.choice(words).upper()
         print("Chosen word :", word)
 
         # Test button
@@ -133,7 +133,9 @@ class Application():
                             if current_column == 5 and current_row < 5:
                                 # Get the misplaced letters
                                 misplaced_letters = word_grid.misplaced_letters(current_row, word)
+                                not_in_word = word_grid.letters_not_in_word(current_row, word)
                                 print(f"Misplaced letters compared to {word} : {misplaced_letters}")
+                                print(f"Letters not in {word} : {not_in_word}")
                                 # The next letters will be written in the next row beginning from the next column
                                 current_row += 1
                                 current_column = 0
@@ -180,7 +182,9 @@ class Application():
                         if current_column == 5 and current_row < 5:
                             # Get the misplaced letters
                             misplaced_letters = word_grid.misplaced_letters(current_row, word)
+                            not_in_word = word_grid.letters_not_in_word(current_row, word)
                             print(f"Misplaced letters compared to {word} : {misplaced_letters}")
+                            print(f"Letters not in {word} : {not_in_word}")
                             # The next letters will be written in the next row beginning from the next column
                             current_row += 1
                             current_column = 0

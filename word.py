@@ -135,6 +135,19 @@ class WordGrid:
         # Assertions
         assert row >= 0 and row <= self.n_rows, f"The row number must be comprised between 0 and {self.n_rows}."
 
+        # List of letters not in the given word
+        not_in_word = []
+
+        word_letters = list(word)
+        row_content = self.content[row]
+
+        for i in range(len(row_content)):
+            letter = row_content[i]
+            if letter not in word_letters:
+                not_in_word.append(letter)
+
+        return not_in_word        
+
 
 
 
