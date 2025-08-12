@@ -25,7 +25,7 @@ class Application():
         # Color code for the game
         self.color_code = {
             "placed":(0,255,0),
-            "misplaced":(255,255,0),
+            "misplaced":(255,200,28),
             "not_in_word":(128,128,128)
         }
 
@@ -260,27 +260,35 @@ class Application():
             change_layout_button.update(mouse_pos)
 
             
+            # Display the word grid
+            word_grid.draw() 
+            
+
+            # Display the cells and keyboard buttons with misplaced letters or letters not in the chosen word
+            for row in range(current_row):
+                for column in range(len(word_grid.content[row])):
+                    letter = word_grid.content[row][column]
+                    for letter_row in misplaced_letters:
+                        if letter in letter_row:
+                            word_grid.draw_cell(row, column, self.color_code["misplaced"])
+                            keyboard.set_button_color(letter, self.color_code["misplaced"])
+
+                        else:
+                            word_grid.draw_cell(row, column, self.color_code["placed"])
+                            keyboard.set_button_color(letter, self.color_code["placed"])    
+
+                    for letter_row in not_in_word:
+                        if letter in letter_row:
+                            word_grid.draw_cell(row, column, self.color_code["not_in_word"])
+                            keyboard.set_button_color(letter, self.color_code["not_in_word"])    
+
 
             change_layout_button.draw()
 
             # Display the keyboard
             keyboard.draw()
 
-            # Display the word grid
-            word_grid.draw()
-
-            # Display the cells with misplaced letters or letters not in the chosen word
-            for row in range(len(word_grid.content)):
-                for column in range(len(word_grid.content[row])):
-                    letter = word_grid.content[row][column]
-                    for letter_row in misplaced_letters:
-                        if letter in letter_row:
-                            word_grid.draw_cell(row, column, self.color_code["misplaced"])
-
-                    for letter_row in not_in_word:
-                        if letter in letter_row:
-                            word_grid.draw_cell(row, column, self.color_code["not_in_word"])    
-                
+            
 
             # Update the window
             pygame.display.flip()            

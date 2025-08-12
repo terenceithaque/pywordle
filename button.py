@@ -34,6 +34,12 @@ class Button:
         # Initialize the button's rect
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
+    def set_color(self, new_color=(0,0,0)):
+        """Changes the color of the button for the given one.
+        new_color: the new color of the button (RGB, tuple)."""
+
+        self.color = new_color    
+
 
     def draw(self):
         """Draws the button on the window."""
@@ -179,6 +185,19 @@ class KeyBoard:
         # Update each button based on the current mouse position
         for button in self.buttons:
             button.update(mouse_pos)
+
+    def set_button_color(self, button_text:str, new_color=(0,0,0)):
+        """Change the color of the button corresponding to the given button text.
+        -button_text: the text allowing to identify which button must have a modified color.
+        -new_color: the new color for the button."""
+
+        # Find the button corresponding to the text
+        button = self.find_button_by_text(button_text)
+
+        # Apply the new color to that button
+        button.set_color(new_color)
+
+
 
 
     def add_button(self, button_text="New button", pos=(0,0), button_width=50, button_height=50, font_size=12, button_color=(0,0,0), hover_color=(255,255,255),
