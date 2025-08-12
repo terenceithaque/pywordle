@@ -107,6 +107,8 @@ class Application():
             #test_button.update(pygame.mouse.get_pos())
             
             self.window.fill((255, 255, 255))
+
+
             # Check for game and user events
             for event in pygame.event.get():
                 # If the player wants to quit the game
@@ -270,20 +272,31 @@ class Application():
                     letter = word_grid.content[row][column]
                     for letter_row in misplaced_letters:
                         if letter in letter_row:
-                            word_grid.draw_cell(row, column, self.color_code["misplaced"])
-                            keyboard.set_button_color(letter, self.color_code["misplaced"])
+                            if word.find(letter) != column:
+                                word_grid.draw_cell(row, column, self.color_code["misplaced"])
+                                keyboard.set_button_color(letter, self.color_code["misplaced"])
+                            
 
-                        else:
-                            word_grid.draw_cell(row, column, self.color_code["placed"])
-                            keyboard.set_button_color(letter, self.color_code["placed"])    
+                            else:
+                                word_grid.draw_cell(row, column, self.color_code["placed"])
+                                keyboard.set_button_color(letter, self.color_code["placed"])
+                                
 
                     for letter_row in not_in_word:
                         if letter in letter_row:
                             word_grid.draw_cell(row, column, self.color_code["not_in_word"])
-                            keyboard.set_button_color(letter, self.color_code["not_in_word"])    
+                            keyboard.set_button_color(letter, self.color_code["not_in_word"])
+                                
 
 
             change_layout_button.draw()
+
+
+            if current_column == 5:
+                keyboard.set_button_color("<- Return", (0,255,0))
+
+            else:
+                keyboard.set_button_color("<- Return", (0,0,0))    
 
             # Display the keyboard
             keyboard.draw()
