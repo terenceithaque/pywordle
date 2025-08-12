@@ -146,7 +146,37 @@ class WordGrid:
             if letter not in word_letters:
                 not_in_word.append(letter)
 
-        return not_in_word        
+        return not_in_word
+
+
+
+
+    def draw_cell(self, row=0, column=0, cell_color=(0,0,0)):
+        """Draw a specific cell located at the position (row, column) of the WordGrid using the given color.
+        -row: the row in which the cell is located,
+        -column: the column in which the cell is located,
+        -cell_color: the color used to fill the cell."""
+
+        # Assertions
+        assert row >= 0 and row <= self.n_rows, f"The row number must be comprised between 0 and {self.n_rows}."
+        assert column >= 0 and column <= self.n_columns, f"The column number must be comprised between 0 and {self.n_columns}."
+
+        # Get the letter inside of the cell
+        letter = self.content[row][column]
+
+        # Convert the cell's row and column to cartesian coordinates
+        coords = self.cartesian_coords(row, column)
+        x = coords[0]
+        y = coords[1]
+
+        # Draw a rectangle representing the cell
+        pygame.draw.rect(self.window, cell_color, (x, y, self.square_width, self.square_height))
+        # Display the text inside of the rectangle
+        text_font = pygame.font.Font(None, self.font_size)
+        text_display = text_font.render(letter, True, self.text_color)
+        self.window.blit(text_display, (x,y))
+
+        
 
 
 
@@ -164,7 +194,7 @@ class WordGrid:
             # For each letter in the row
             for letter in row:
                 # Draw a rectangle at the current (x, y) position
-                pygame.draw.rect(self.window, (125,125,125),(x, y, self.square_width, self.square_height))
+                pygame.draw.rect(self.window, (0,0,0),(x, y, self.square_width, self.square_height))
                 # Display the letter inside of the rectangle
                 text_font = pygame.font.Font(None, self.font_size)
                 text_display = text_font.render(letter, True, self.text_color)

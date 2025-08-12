@@ -24,8 +24,9 @@ class Application():
 
         # Color code for the game
         self.color_code = {
-            "misplaced":(128,94,92),
-            "not_in_word":(255,0,0)
+            "placed":(0,255,0),
+            "misplaced":(255,255,0),
+            "not_in_word":(128,128,128)
         }
 
         # Running state tracking variable
@@ -79,6 +80,9 @@ class Application():
         current_row = 0
         # Current grid column
         current_column = 0
+
+        misplaced_letters = []
+        not_in_word = []
         
         # While the game is running
         while self.running:
@@ -95,6 +99,8 @@ class Application():
 
             # Get pressed keys
             keys = pygame.key.get_pressed()
+
+            
 
             
 
@@ -131,11 +137,13 @@ class Application():
                         if button.is_clicked(event):
                             print("Return button clicked.")
                             if current_column == 5 and current_row < 5:
-                                # Get the misplaced letters
-                                misplaced_letters = word_grid.misplaced_letters(current_row, word)
-                                not_in_word = word_grid.letters_not_in_word(current_row, word)
+
+                                # Update misplaced letters and letters not in the chosen word
+                                misplaced_letters.append(word_grid.misplaced_letters(current_row, current_column))
+                                not_in_word.append(word_grid.letters_not_in_word(current_row, current_column))
                                 print(f"Misplaced letters compared to {word} : {misplaced_letters}")
                                 print(f"Letters not in {word} : {not_in_word}")
+
                                 # The next letters will be written in the next row beginning from the next column
                                 current_row += 1
                                 current_column = 0
@@ -180,9 +188,9 @@ class Application():
                         return_button.is_hovered = True
                         # Update the current row and column
                         if current_column == 5 and current_row < 5:
-                            # Get the misplaced letters
-                            misplaced_letters = word_grid.misplaced_letters(current_row, word)
-                            not_in_word = word_grid.letters_not_in_word(current_row, word)
+                            # Update misplaced letters and letters not in the chosen word
+                            misplaced_letters.append(word_grid.misplaced_letters(current_row, word))
+                            not_in_word.append(word_grid.letters_not_in_word(current_row, word))
                             print(f"Misplaced letters compared to {word} : {misplaced_letters}")
                             print(f"Letters not in {word} : {not_in_word}")
                             # The next letters will be written in the next row beginning from the next column
@@ -260,6 +268,19 @@ class Application():
 
             # Display the word grid
             word_grid.draw()
+
+            # Display the cells with misplaced letters or letters not in the chosen word
+            for row in range(len(word_grid.content)):
+                for column in range(len(word_grid.content[row])):
+                    letter = word_grid.content[row][column]
+                    for letter_row in misplaced_letters:
+                        if letter in letter_row:
+                            word_grid.draw_cell(row, column, self.color_code["misplaced"])
+
+                    for letter_row in not_in_word:
+                        if letter in letter_row:
+                            word_grid.draw_cell(row, column, self.color_code["not_in_word"])    
+                
 
             # Update the window
             pygame.display.flip()            
