@@ -265,35 +265,39 @@ class Application():
             # Display the word grid
             word_grid.draw() 
             
-
-            # Display the cells and keyboard buttons with misplaced letters or letters not in the chosen word
+            
+            # Display the word grid cells based on letter positions
             for row in range(current_row):
-                for column in range(len(word_grid.content[row])):
-                    letter = word_grid.content[row][column]
-                    for letter_row in misplaced_letters:
-                        if letter in letter_row:
-                            if word.find(letter) != column:
-                                word_grid.draw_cell(row, column, self.color_code["misplaced"])
-                                keyboard.set_button_color(letter, self.color_code["misplaced"])
-                            
+                # Get the word in the row
+                guess = "".join(word_grid.get_word(row))
+                result = compare_words(guess, word)
+                
+                # Get the common letter positions of the guess and the chosen word
+                #common_positions = common_letter_positions(word, guess)
+                #print(f"Common letter positions : {common_positions}")
 
-                            else:
-                                word_grid.draw_cell(row, column, self.color_code["placed"])
-                                keyboard.set_button_color(letter, self.color_code["placed"])
-                                
 
-                    for letter_row in not_in_word:
-                        if letter in letter_row:
-                            word_grid.draw_cell(row, column, self.color_code["not_in_word"])
-                            keyboard.set_button_color(letter, self.color_code["not_in_word"])
-                                
 
+
+
+
+                for col, state in enumerate(result):
+                    color = self.color_code[state]
+                    letter = guess[col]
+                    word_grid.draw_cell(row, col, color)
+                    keyboard.set_button_color(letter, color)      
+    
+            
 
             change_layout_button.draw()
 
 
             if current_column == 5:
                 keyboard.set_button_color("<- Return", (0,255,0))
+                return_button = keyboard.find_button_by_text("<- Return")
+                return_button.is_hovered = True
+                
+
 
             else:
                 keyboard.set_button_color("<- Return", (0,0,0))    

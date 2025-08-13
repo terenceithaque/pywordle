@@ -22,6 +22,73 @@ def read_words_file():
         print(f"Error while reading the file: {e}")
 
 
+def letter_positions(word:str|list[str]) -> dict:
+    """Returns a dict containining the different positions of all letters in the given word.
+    word: a string or a list of single characters."""
+
+    positions = {}
+
+    for i in range(len(word)):
+        letter = word[i]
+        if letter in positions.keys():
+            positions[letter].append(i)
+
+        else:
+            positions[letter] = [i]
+
+    return positions
+
+
+def common_letter_positions(word_1:str|list[str], word_2:str|list[str]) -> dict:
+    """Returns a dict containing common positions of letters by comparing the two given words.
+    word_1: the first word (string, or list of single caracters),
+    word_2: the second word (string, or list of single caracters)."""
+
+    common_positions = {}
+
+    for i, letter in enumerate(word_1):
+        if word_2[i] == letter:
+            if letter in common_positions.keys():
+                common_positions[letter].append(i)
+
+            else:
+                common_positions[letter] = [i]
+
+    return common_positions            
+
+
+
+def compare_words(guess, target):
+    """Compare the guess word and the target word, returns a list of statuses for each letter (placed, misplaced, not in word)."""
+
+    status = [""] * len(guess)
+    # List the letters of the guess and the target word
+    target_letters = list(target)
+    guess_letters = list(guess)
+
+    for i in range(len(guess_letters)):
+        # If the letter is well placed
+        if guess_letters[i] == target_letters[i]:
+            status[i] = "placed"
+            target_letters[i] = None
+            guess_letters[i] = None
+
+
+    for i in range(len(guess_letters)):
+        if guess_letters[i] is not None:
+            # If the letter is misplaced
+            if guess_letters[i] in target_letters:
+                status[i] = "misplaced"
+                target_letters[target_letters.index(guess_letters[i])] = None
+
+            # If the letter is not in the target word
+            else:
+                status[i] = "not_in_word"
+
+    return status                                        
+
+
+
 
 class WordGrid:
     """A WordGrid object representing a word grid."""
@@ -42,7 +109,7 @@ class WordGrid:
         # Grid content
         self.content = [["" for i in range(self.n_columns)] for n in range(self.n_rows)]
 
-    def add(self, letter:str, row=0, column=0):
+    def add(self, letter:str, row=0, column=0) -> None:
         """Add the given letter at the position (row, column).
         - letter: the letter to be added in the grid, str.
         - row: row in which the letter will be inserted, int (0 by default),
@@ -57,7 +124,7 @@ class WordGrid:
         # Update the grid content
         self.content[row][column] = letter
 
-    def free_columns_in_row(self, row=0):
+    def free_columns_in_row(self, row=0) -> list[tuple]:
         """Returns a list of tuples with the positions (row, column) of all free columns in the given row.
         - row: the row in which to find free columns, int (0 by default)."""
 
@@ -72,7 +139,7 @@ class WordGrid:
 
         return [(row, column) for column in free_columns]
     
-    def cartesian_coords(self, row=0, column=0):
+    def cartesian_coords(self, row=0, column=0) -> tuple:
         """Returns the cartesian (x, y) coordinates of the cell located at (row, column).
         row: the row in which the cell is located.
         column: the column in which the cell is located."""
@@ -87,7 +154,7 @@ class WordGrid:
 
         return (cell_x, cell_y)
     
-    def delete_letter(self, row=0, column=0):
+    def delete_letter(self, row=0, column=0) -> None:
         """Delete the letter in the cell located at position (row, column).
         - row: the row in which the cell is located,
         - column: the column in which the cell is located."""
@@ -99,7 +166,7 @@ class WordGrid:
         self.content[row][column] = ""
 
 
-    def get_word(self, row=0):
+    def get_word(self, row=0) -> list[str]:
         """Returns the word contained in the specified row.
         row: the number of the row where the word is located"""
 
@@ -108,7 +175,7 @@ class WordGrid:
         return self.content[row]
     
 
-    def misplaced_letters(self, row=0, word=""):
+    def misplaced_letters(self, row=0, word="") -> list:
         """Compares the position of letters in the given row with the ones of the given word, and return a list of misplaced letters."""
 
         # Assertions
@@ -130,7 +197,7 @@ class WordGrid:
         return misplaced
 
 
-    def letters_not_in_word(self, row=0, word=""):
+    def letters_not_in_word(self, row=0, word="") -> list:
         """Returns a list of letters in the given row that aren't in the given word."""
         # Assertions
         assert row >= 0 and row <= self.n_rows, f"The row number must be comprised between 0 and {self.n_rows}."
@@ -151,7 +218,7 @@ class WordGrid:
 
 
 
-    def draw_cell(self, row=0, column=0, cell_color=(0,0,0)):
+    def draw_cell(self, row=0, column=0, cell_color=(0,0,0)) -> None:
         """Draw a specific cell located at the position (row, column) of the WordGrid using the given color.
         -row: the row in which the cell is located,
         -column: the column in which the cell is located,
@@ -182,7 +249,7 @@ class WordGrid:
 
 
     
-    def draw(self):
+    def draw(self) -> None:
         """Draw the WordGrid on the screen."""
 
         # Starting position
