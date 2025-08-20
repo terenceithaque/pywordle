@@ -89,6 +89,9 @@ class Application():
 
             #print(list(range(current_column + 1)))
 
+            #print(f"Current row : {current_row}")
+            #print(f"Current column : {current_column}")
+
             pygame.time.wait(100)
 
             # Position of the mouse
@@ -140,15 +143,34 @@ class Application():
                             print("Return button clicked.")
                             if current_column == 5 and current_row < 5:
 
-                                # Update misplaced letters and letters not in the chosen word
-                                misplaced_letters.append(word_grid.misplaced_letters(current_row, current_column))
-                                not_in_word.append(word_grid.letters_not_in_word(current_row, current_column))
-                                print(f"Misplaced letters compared to {word} : {misplaced_letters}")
-                                print(f"Letters not in {word} : {not_in_word}")
+                                guess = "".join(word_grid.get_word(current_row))
 
-                                # The next letters will be written in the next row beginning from the next column
-                                current_row += 1
-                                current_column = 0
+                                if guess == word:
+                                    messagebox.showinfo("You won !", "You have correctly guessed the word. Congratulations !")
+                                    return
+
+                                else:
+                                    # Update misplaced letters and letters not in the chosen word
+                                    misplaced_letters.append(word_grid.misplaced_letters(current_row, guess))
+                                    not_in_word.append(word_grid.letters_not_in_word(current_row, guess))
+                                    print(f"Misplaced letters compared to {word} : {misplaced_letters}")
+                                    print(f"Letters not in {word} : {not_in_word}")
+
+                                    # The next letters will be written in the next row beginning from the next column
+                                    current_row += 1
+                                    current_column = 0
+
+
+                            elif current_column == 5 and current_row == 5:
+                                guess = "".join(word_grid.get_word(current_row))
+                                #print("Guess :", guess)
+                                if guess == word:
+                                    messagebox.showinfo("You won !", "You have correctly guessed the word. Congratulations !")
+                                    return
+
+                                else:
+                                    messagebox.showinfo("You loose !", f"You loose ! The correct word was {word}.")
+                                    return            
 
                             else:
                                 messagebox.showinfo("Too short !", "Word too short !")
@@ -190,14 +212,36 @@ class Application():
                         return_button.is_hovered = True
                         # Update the current row and column
                         if current_column == 5 and current_row < 5:
-                            # Update misplaced letters and letters not in the chosen word
-                            misplaced_letters.append(word_grid.misplaced_letters(current_row, word))
-                            not_in_word.append(word_grid.letters_not_in_word(current_row, word))
-                            print(f"Misplaced letters compared to {word} : {misplaced_letters}")
-                            print(f"Letters not in {word} : {not_in_word}")
-                            # The next letters will be written in the next row beginning from the next column
-                            current_row += 1
-                            current_column = 0
+
+                            guess = "".join(word_grid.get_word(current_row))
+
+                            if guess == word:
+                                messagebox.showinfo("You won !", "You have correctly guessed the word. Congratulations !")
+                                return
+
+                            else:
+                                # Update misplaced letters and letters not in the chosen word
+                                misplaced_letters.append(word_grid.misplaced_letters(current_row, guess))
+                                not_in_word.append(word_grid.letters_not_in_word(current_row, guess))
+                                print(f"Misplaced letters compared to {word} : {misplaced_letters}")
+                                print(f"Letters not in {word} : {not_in_word}")
+
+                                # The next letters will be written in the next row beginning from the next column
+                                current_row += 1
+                                current_column = 0
+                            
+
+
+                        elif current_column == 5 and current_row == 5:
+                            guess = "".join(word_grid.get_word(current_row))
+                            #print("Guess :", guess)
+                            if guess == word:
+                                messagebox.showinfo("You won !", "You have correctly guessed the word. Congratulations !")
+                                return
+
+                            else:
+                                messagebox.showinfo("You loose !", f"You loose ! The correct word was {word}.")
+                                return        
 
                         else:
                             messagebox.showinfo("Too short !", "Word too short !")    
@@ -296,14 +340,23 @@ class Application():
                 keyboard.set_button_color("<- Return", (0,255,0))
                 return_button = keyboard.find_button_by_text("<- Return")
                 return_button.is_hovered = True
+    
                 
 
 
             else:
-                keyboard.set_button_color("<- Return", (0,0,0))    
+                keyboard.set_button_color("<- Return", (0,0,0))
+
+
+
 
             # Display the keyboard
             keyboard.draw()
+
+
+            
+
+
 
             
 
