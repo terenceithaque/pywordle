@@ -147,6 +147,8 @@ class Application():
 
                                 if guess not in words:
                                     messagebox.showwarning("Not in words list !", f"{guess} is not in the words list.")
+                                    word_grid.delete_word(current_row)
+                                    current_column = 0
 
                                 elif guess == word:
                                     messagebox.showinfo("You won !", "You have correctly guessed the word. Congratulations !")
@@ -221,6 +223,10 @@ class Application():
 
                             if guess not in words:
                                     messagebox.showwarning("Not in words list !", f"{guess} is not in the words list.")
+                                    word_grid.delete_word(current_row)
+                                    current_column = 0
+
+
 
                             elif guess == word:
                                 messagebox.showinfo("You won !", "You have correctly guessed the word. Congratulations !")

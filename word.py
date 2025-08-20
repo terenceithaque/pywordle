@@ -166,6 +166,18 @@ class WordGrid:
         self.content[row][column] = ""
 
 
+    def delete_word(self, row=0) -> None:
+        """Delete the word contained in the given row in the grid.
+        -row: the row in which the word is located."""
+
+        # Assertions
+        assert row >= 0 and row <= self.n_rows, f"The row number must be comprised between 0 and {self.n_rows}."
+
+        word = self.content[row]
+        for i in range(len(word)):
+            word[i] = ""    
+
+
     def get_word(self, row=0) -> list[str]:
         """Returns the word contained in the specified row.
         row: the number of the row where the word is located"""
