@@ -145,7 +145,10 @@ class Application():
 
                                 guess = "".join(word_grid.get_word(current_row))
 
-                                if guess == word:
+                                if guess not in words:
+                                    messagebox.showwarning("Not in words list !", f"{guess} is not in the words list.")
+
+                                elif guess == word:
                                     messagebox.showinfo("You won !", "You have correctly guessed the word. Congratulations !")
                                     return
 
@@ -215,7 +218,11 @@ class Application():
 
                             guess = "".join(word_grid.get_word(current_row))
 
-                            if guess == word:
+
+                            if guess not in words:
+                                    messagebox.showwarning("Not in words list !", f"{guess} is not in the words list.")
+
+                            elif guess == word:
                                 messagebox.showinfo("You won !", "You have correctly guessed the word. Congratulations !")
                                 return
 
