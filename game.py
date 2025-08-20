@@ -38,11 +38,10 @@ class Application():
 
         # Read the words file and split its content using the newline separator
         words = read_words_file().split("\n")
-        print(words)
+        #print(words)
 
         # Choose a random word
         word = random.choice(words).upper()
-        print("Chosen word :", word)
 
         # Test button
         """test_button = Button(self.window, width=100, height=50, font_size=24, text="Test button", coords=(50, 50), color=(0,0,0), hover_color=(128, 128, 128), 
@@ -51,6 +50,9 @@ class Application():
 
         # Button to change keyboard layout
         change_layout_button = Button(self.window, 180, 50, 24, "AZERTY -> QWERTY", (0,0), (0,0,0), (255,0,0), (255,255,255))
+
+        # Button to give up
+        give_up_button = Button(self.window, 180, 50, 24, "GIVE UP !", (0, 60), (0,0,0), (255,0,0), (255,255,255))
 
         # AZERTY keyboard layout
         azerty = [("A","Z","E","R","T","Y","U","I","O","P"),
@@ -135,6 +137,13 @@ class Application():
                         keyboard.add_button("<× Del", (650, 490), 125, 50, 24, (0,0,0), (255,0,0), (255,255,255))
                         change_layout_button.change_text("AZERTY -> QWERTY")
 
+
+                if give_up_button.is_clicked(event):
+                    give_up = messagebox.askyesno("Give up ?", "If you give up now, you will instantly loose the game. Do you really want to do it ?")
+                    if give_up:
+                        messagebox.showinfo("You loose !", f"You loose ! The correct word was {word}.")
+                        return        
+
                 for button in keyboard.buttons:
 
                     # Handle the Return button
@@ -158,8 +167,8 @@ class Application():
                                     # Update misplaced letters and letters not in the chosen word
                                     misplaced_letters.append(word_grid.misplaced_letters(current_row, guess))
                                     not_in_word.append(word_grid.letters_not_in_word(current_row, guess))
-                                    print(f"Misplaced letters compared to {word} : {misplaced_letters}")
-                                    print(f"Letters not in {word} : {not_in_word}")
+                                    #print(f"Misplaced letters compared to {word} : {misplaced_letters}")
+                                    #print(f"Letters not in {word} : {not_in_word}")
 
                                     # The next letters will be written in the next row beginning from the next column
                                     current_row += 1
@@ -236,8 +245,8 @@ class Application():
                                 # Update misplaced letters and letters not in the chosen word
                                 misplaced_letters.append(word_grid.misplaced_letters(current_row, guess))
                                 not_in_word.append(word_grid.letters_not_in_word(current_row, guess))
-                                print(f"Misplaced letters compared to {word} : {misplaced_letters}")
-                                print(f"Letters not in {word} : {not_in_word}")
+                                #print(f"Misplaced letters compared to {word} : {misplaced_letters}")
+                                #print(f"Letters not in {word} : {not_in_word}")
 
                                 # The next letters will be written in the next row beginning from the next column
                                 current_row += 1
@@ -347,6 +356,10 @@ class Application():
             
 
             change_layout_button.draw()
+
+            give_up_button.update(mouse_pos)
+
+            give_up_button.draw()
 
 
             if current_column == 5:
