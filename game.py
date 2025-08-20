@@ -145,7 +145,7 @@ class Application():
 
                                 guess = "".join(word_grid.get_word(current_row))
 
-                                if guess not in words:
+                                if guess.lower() not in words:
                                     messagebox.showwarning("Not in words list !", f"{guess} is not in the words list.")
                                     word_grid.delete_word(current_row)
                                     current_column = 0
@@ -221,7 +221,7 @@ class Application():
                             guess = "".join(word_grid.get_word(current_row))
 
 
-                            if guess not in words:
+                            if guess.lower() not in words:
                                     messagebox.showwarning("Not in words list !", f"{guess} is not in the words list.")
                                     word_grid.delete_word(current_row)
                                     current_column = 0
