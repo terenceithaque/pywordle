@@ -118,11 +118,11 @@ class Application():
             for event in pygame.event.get():
                 # If the player wants to quit the game
                 if event.type == pygame.QUIT:
-                    # End running the game
-                    self.running = False
-
-                """if event.type == pygame.MOUSEMOTION:
-                    print(pygame.mouse.get_pos())"""    
+                    quit = messagebox.askyesno("Quit ?", "Do you want to quit the game ?")
+                    if quit:
+                        # End running the game
+                        self.running = False
+                           
 
                 if change_layout_button.is_clicked(event):
                     if change_layout_button.text == "AZERTY -> QWERTY":
